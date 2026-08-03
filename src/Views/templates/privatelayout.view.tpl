@@ -7,7 +7,9 @@
   <title>{{SITE_TITLE}}</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{BASE_DIR}}/public/css/appstyle.css" />
+  <link rel="stylesheet" href="{{BASE_DIR}}public/css/appstyle.css" />
+  <link rel="stylesheet" href="{{BASE_DIR}}public/css/layout.css" />
+  <link rel="stylesheet" href="{{BASE_DIR}}public/css/private.css" />
   <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
   {{foreach SiteLinks}}
   <link rel="stylesheet" href="{{~BASE_DIR}}/{{this}}" />
