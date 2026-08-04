@@ -63,4 +63,6 @@ class Security {
         }
         return DaoSecurity::isUsuarioInRol($userId, $rol);
     }
+
+    
 }

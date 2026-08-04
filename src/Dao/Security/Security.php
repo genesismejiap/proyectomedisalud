@@ -85,6 +85,34 @@ class Security extends \Dao\Table
 
     }
 
+    static public function addUserToRole($userCod, $rolescod = "CLIENT")
+{
+    $sqlins = "INSERT INTO roles_usuarios
+        (
+            usercod,
+            rolescod,
+            roleuserest,
+            roleuserfch,
+            roleuserexp
+        )
+        VALUES
+        (
+            :usercod,
+            :rolescod,
+            'ACT',
+            NOW(),
+            NULL
+        );";
+
+    return self::executeNonQuery(
+        $sqlins,
+        array(
+            "usercod" => $userCod,
+            "rolescod" => $rolescod
+        )
+    );
+}
+
     static public function getUsuarioByEmail($email)
     {
         $sqlstr = "SELECT * from `usuario` where `useremail` = :useremail ;";

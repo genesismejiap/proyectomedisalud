@@ -53,7 +53,7 @@
             </table>
 
             <div style="margin-top:1.5rem; display:flex; justify-content:space-between; align-items:center;">
-                <a href="index.php?page=Checkout_Catalogo" class="btn btn-outline">
+                <a href="index.php#catalogo" class="btn btn-outline">
                     <i class="fas fa-arrow-left"></i> Seguir Comprando
                 </a>
                 <form action="index.php?page=Cart_Cart" method="POST" style="margin:0;">
@@ -99,13 +99,13 @@
 </div>
 {{endif hasItems}}
 
-{{if !hasItems}}
+{{ifnot hasItems}}
 <div class="card-box" style="text-align:center; padding:3rem 1.5rem;">
     <i class="fas fa-shopping-cart" style="font-size:4rem; color:#cbd5e1; margin-bottom:1rem;"></i>
     <h3 style="color:#475569; margin-bottom:.5rem;">Tu carretilla está vacía</h3>
     <p style="color:#64748b; margin-bottom:1.5rem;">Añade medicamentos o productos de nuestro catálogo para comenzar tu compra.</p>
-    <a href="index.php?page=Checkout_Catalogo" class="btn btn-primary">
+    <a href="index.php#catalogo" class="btn btn-primary">
         <i class="fas fa-capsules"></i> Ir al Catálogo de Productos
     </a>
 </div>
-{{endif !hasItems}}
+{{endifnot hasItems}}
