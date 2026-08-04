@@ -1,6 +1,11 @@
 {
   "public": [
     {
+      "id": "Menu_Catalogo",
+      "nav_url": "index.php#catalogo",
+      "nav_label": "<i class=\"fas fa-prescription-bottle-alt\"></i>&nbsp;Catálogo"
+    },
+    {
       "id": "Menu_SignIn",
       "nav_url": "index.php?page=Sec_Login",
       "nav_label":"<i class=\"fas fa-sign-in-alt\"></i>&nbsp;Iniciar Sesión"
@@ -12,11 +17,6 @@
     }
   ],
   "private": [
-    {
-      "id": "Menu_Catalogo",
-      "nav_url": "index.php?page=Checkout_Catalogo",
-      "nav_label": "<i class=\"fas fa-prescription-bottle-alt\"></i>&nbsp;Catálogo"
-    },
     {
       "id": "Menu_ProductosMnt",
       "nav_url": "index.php?page=Mnt_Productos",

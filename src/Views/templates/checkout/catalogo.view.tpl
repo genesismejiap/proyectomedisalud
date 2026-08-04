@@ -36,9 +36,9 @@
                     {{if hasStock}}
                     <span class="product-stock-badge stock-ok"><i class="fas fa-check-circle"></i> {{productStock}} disp.</span>
                     {{endif hasStock}}
-                    {{if !hasStock}}
+                    {{ifnot hasStock}}
                     <span class="product-stock-badge stock-out"><i class="fas fa-times-circle"></i> Agotado</span>
-                    {{endif !hasStock}}
+                    {{endifnot hasStock}}
                 </div>
 
                 {{if hasStock}}
