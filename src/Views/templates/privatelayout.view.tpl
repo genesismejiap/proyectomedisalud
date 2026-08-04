@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{BASE_DIR}}public/css/appstyle.css" />
   <link rel="stylesheet" href="{{BASE_DIR}}public/css/layout.css" />
   <link rel="stylesheet" href="{{BASE_DIR}}public/css/private.css" />
-  <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   {{foreach SiteLinks}}
   <link rel="stylesheet" href="{{~BASE_DIR}}/{{this}}" />
   {{endfor SiteLinks}}

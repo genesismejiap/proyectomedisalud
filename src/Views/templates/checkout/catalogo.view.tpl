@@ -1,6 +1,6 @@
-<div style="margin-bottom:1.5rem;">
-    <h2 style="color:#0284c7; margin-bottom:.25rem;"><i class="fas fa-prescription-bottle-alt"></i> Catálogo de Productos mediSalud</h2>
-    <p style="color:#64748b; margin:0;">Medicamentos, suplementos y productos de cuidado personal en inventario.</p>
+<div style="margin-bottom:1.5rem; margin-top:1rem;">
+    <h2 style="color:#0284c7; margin-bottom:.25rem; font-size: 2rem; font-weight: 800;"><i class="fas fa-prescription-bottle-alt"></i> Catálogo de Productos</h2>
+    <p style="color:#64748b; margin:0; font-size: 1.1rem;">Medicamentos, suplementos y productos de cuidado personal en inventario.</p>
 </div>
 
 <div class="catalog-filter-bar">

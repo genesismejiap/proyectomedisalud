@@ -35,24 +35,44 @@ class Catalogo extends PrivateController
      */
     public function run():void
     {
-        // code
-        $producto = \Dao\Productos::getAll();
-        $carretilla = \Dao\Carretilla::getAll(\Utilities\Security::getUserId());
+        \Utilities\Site::addLink("public/css/catalog.css");
 
-        $carrAssoc = array();
-        foreach($carretilla as $carr) {
-            $carrAssoc[$carr["prdcod"]] = $carr;
+        $searchQuery = trim($_GET["search"] ?? "");
+        $categoryFilter = trim($_GET["category"] ?? "");
+
+        // Obtener productos según filtros
+        if (!empty($searchQuery)) {
+            $productos = \Dao\Productos::searchProducts($searchQuery, $categoryFilter);
+        } elseif (!empty($categoryFilter)) {
+            $productos = \Dao\Productos::getByCategory($categoryFilter);
+        } else {
+            $productos = \Dao\Productos::getAll();
         }
 
-        foreach($producto as $prod) {
-            if (isset($carrAssoc[$prod["prdcod"]])) {
-                $prod["enCarretilla"] = true;
-            } else {
-                $prod["enCarretilla"] = false;
-            }
+        // Agregar flag de stock
+        foreach ($productos as &$prod) {
+            $prod["hasStock"] = intval($prod["productStock"] ?? 0) > 0;
         }
-        \Views\Renderer::render("abc", array("productos" => $producto));
+
+        // Obtener categorías para los filtros
+        $dbCategories = \Dao\Productos::getCategories();
+        $categories = [];
+        $categories[] = [
+            "categoryName" => "Todas",
+            "selected" => empty($categoryFilter) || $categoryFilter === "Todas",
+        ];
+        foreach ($dbCategories as $cat) {
+            $categories[] = [
+                "categoryName" => $cat["productCategory"],
+                "selected" => ($cat["productCategory"] === $categoryFilter),
+            ];
+        }
+
+        \Views\Renderer::render("checkout/catalogo", array(
+            "productos"   => $productos,
+            "categories"  => $categories,
+            "searchQuery" => $searchQuery,
+        ));
     }
 }
 
-?>
