@@ -26,6 +26,16 @@
       "id":"Menu_PaymentCheckout",
       "nav_url": "index.php?page=Checkout_Checkout",
       "nav_label": "Carretilla de Compra"
+    },
+    {
+      "id": "Menu_MisTransacciones",
+      "nav_url": "index.php?page=Transacciones_MisTransacciones",
+      "nav_label": "<i class=\"fas fa-history\"></i>&nbsp;Mis Compras"
+    },
+    {
+      "id": "Menu_GestionTransacciones",
+      "nav_url": "index.php?page=Transacciones_GestionTransacciones",
+      "nav_label": "<i class=\"fas fa-file-invoice-dollar\"></i>&nbsp;Transacciones PayPal"
     }
   ]
 }

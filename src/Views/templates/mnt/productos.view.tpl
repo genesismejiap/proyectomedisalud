@@ -40,9 +40,9 @@
                     {{if productStock}}
                     <span class="product-stock-badge stock-ok">{{productStock}} unid.</span>
                     {{endif productStock}}
-                    {{if !productStock}}
+                    {{ifnot productStock}}
                     <span class="product-stock-badge stock-out">0 unid.</span>
-                    {{endif !productStock}}
+                    {{endifnot productStock}}
                 </td>
                 <td>
                     <span class="product-stock-badge stock-ok">{{productStatus}}</span>

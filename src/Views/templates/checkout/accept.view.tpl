@@ -72,11 +72,11 @@
 </div>
 {{endif hasOrder}}
 
-{{if !hasOrder}}
+{{ifnot hasOrder}}
 <div class="card-box" style="text-align:center; padding:3rem;">
     <i class="fas fa-exclamation-triangle" style="font-size:3.5rem; color:#ef4444; margin-bottom:1rem;"></i>
     <h3 style="color:#b91c1c;">No se encontró la transacción</h3>
     <p style="color:#64748b;">{{errorMessage}}</p>
     <a href="index.php?page=Checkout_Catalogo" class="btn btn-primary">Regresar al Catálogo</a>
 </div>
-{{endif !hasOrder}}
+{{endifnot hasOrder}}

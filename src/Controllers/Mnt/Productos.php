@@ -5,9 +5,9 @@
  */
 namespace Controllers\Mnt;
 
-use Controllers\PublicController;
+use Controllers\PrivateController;
 
-class Productos extends PublicController
+class Productos extends PrivateController
 {
     public function run(): void
     {

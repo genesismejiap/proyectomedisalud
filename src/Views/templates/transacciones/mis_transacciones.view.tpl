@@ -94,11 +94,11 @@
 </div>
 {{endif hasSelected}}
 
-{{if !hasTransacciones}}
+{{ifnot hasTransacciones}}
 <div class="card-box" style="text-align:center; padding:3rem;">
     <i class="fas fa-receipt" style="font-size:3.5rem; color:#cbd5e1; margin-bottom:1rem;"></i>
     <h3 style="color:#475569;">Aún no tienes compras registradas</h3>
     <p style="color:#64748b;">Tus compras finalizadas aparecerán aquí en tu historial personal.</p>
     <a href="index.php?page=Checkout_Catalogo" class="btn btn-primary">Ir al Catálogo</a>
 </div>
-{{endif !hasTransacciones}}
+{{endifnot hasTransacciones}}

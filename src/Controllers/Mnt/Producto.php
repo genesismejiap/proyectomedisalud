@@ -5,10 +5,12 @@
  */
 namespace Controllers\Mnt;
 
-use Controllers\PublicController;
+use Controllers\PrivateController;
 
-class Producto extends PublicController
+class Producto extends PrivateController
 {
+    const IMG_DIR = "public/imgs/products/";
+
     private $categories = [
         "Analgesicos",
         "Antibioticos",
@@ -44,6 +46,7 @@ class Producto extends PublicController
             "productStatus"  => "ACT",
             "readonly"       => false,
             "showDelete"     => false,
+            "hasImage"       => false,
             "modeTitle"      => $this->getModeTitle($mode),
         );
 
@@ -63,6 +66,7 @@ class Producto extends PublicController
 
         $viewData["readonly"]    = ($mode === "DSP" || $mode === "DEL");
         $viewData["showDelete"]  = ($mode === "DEL");
+        $viewData["hasImage"]    = ($viewData["productImgUrl"] !== "");
 
         // Construir options de categoria
         $catOptions = [];
@@ -88,6 +92,17 @@ class Producto extends PublicController
 
         // POST: guardar cambios
         if ($this->isPostBack()) {
+            $postMode = trim($_POST["mode"] ?? "INS");
+            $postId   = (int)($_POST["productId"] ?? 0);
+
+            // En modo DEL los campos van deshabilitados (no viajan en el POST),
+            // por lo que la eliminación se procesa antes de las validaciones.
+            if ($postMode === "DEL" && $postId > 0) {
+                \Dao\Productos::deleteProduct($postId);
+                \Utilities\Site::redirectTo("index.php?page=Mnt_Productos");
+                die();
+            }
+
             $name        = trim($_POST["productName"] ?? "");
             $description = trim($_POST["productDescription"] ?? "");
             $price       = (float)($_POST["productPrice"] ?? 0);
@@ -95,8 +110,7 @@ class Producto extends PublicController
             $imgUrl      = trim($_POST["productImgUrl"] ?? "");
             $category    = trim($_POST["productCategory"] ?? "");
             $status      = trim($_POST["productStatus"] ?? "ACT");
-            $postMode    = trim($_POST["mode"] ?? "INS");
-            $postId      = (int)($_POST["productId"] ?? 0);
+            $deleteImage = isset($_POST["deleteImage"]);
 
             $hasError = false;
 
@@ -113,13 +127,38 @@ class Producto extends PublicController
                 $hasError = true;
             }
 
+            // Imagen actual registrada en la BD (para limpiarla del disco al reemplazar/eliminar)
+            $currentImgUrl = "";
+            if ($postId > 0) {
+                $current = \Dao\Productos::getById($postId);
+                if ($current) {
+                    $currentImgUrl = $current["productImgUrl"] ?? "";
+                }
+            }
+
+            // Eliminar la imagen actual si el administrador lo solicitó
+            if ($deleteImage) {
+                $this->deleteLocalImage($currentImgUrl);
+                if ($imgUrl === $currentImgUrl) {
+                    $imgUrl = "";
+                }
+            }
+
+            // Procesar la subida de una nueva imagen (tiene prioridad sobre la URL)
+            $upload = $this->processImageUpload();
+            if ($upload["error"] !== "") {
+                $viewData["errorImg"] = $upload["error"];
+                $hasError = true;
+            } elseif ($upload["path"] !== "") {
+                $this->deleteLocalImage($currentImgUrl);
+                $imgUrl = $upload["path"];
+            }
+
             if (!$hasError) {
                 if ($postMode === "INS") {
                     \Dao\Productos::insertProduct($name, $description, $price, $imgUrl, $stock, $category, $status);
                 } elseif ($postMode === "UPD") {
                     \Dao\Productos::updateProduct($postId, $name, $description, $price, $imgUrl, $stock, $category, $status);
-                } elseif ($postMode === "DEL") {
-                    \Dao\Productos::deleteProduct($postId);
                 }
                 \Utilities\Site::redirectTo("index.php?page=Mnt_Productos");
                 die();
@@ -131,6 +170,7 @@ class Producto extends PublicController
             $viewData["productPrice"]       = $price;
             $viewData["productStock"]       = $stock;
             $viewData["productImgUrl"]      = $imgUrl;
+            $viewData["hasImage"]           = ($imgUrl !== "");
             $viewData["readonly"]           = false;
             $viewData["showDelete"]         = false;
         }
@@ -147,5 +187,64 @@ class Producto extends PublicController
             "DEL" => "Eliminar Producto",
         ];
         return $titles[$mode] ?? "Producto";
+    }
+
+    /**
+     * Valida y guarda la imagen subida en public/imgs/products/.
+     * Devuelve array("path" => ruta relativa, "error" => mensaje).
+     */
+    private function processImageUpload(): array
+    {
+        $result = array("path" => "", "error" => "");
+
+        if (!isset($_FILES["productImgFile"]) || $_FILES["productImgFile"]["error"] === UPLOAD_ERR_NO_FILE) {
+            return $result;
+        }
+
+        $file = $_FILES["productImgFile"];
+
+        if ($file["error"] !== UPLOAD_ERR_OK) {
+            $result["error"] = "Ocurrió un error al subir el archivo (código " . $file["error"] . ").";
+            return $result;
+        }
+        if ($file["size"] > 2 * 1024 * 1024) {
+            $result["error"] = "La imagen no debe superar los 2MB.";
+            return $result;
+        }
+
+        $ext = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
+        $allowed = array("jpg", "jpeg", "png", "gif", "webp");
+        if (!in_array($ext, $allowed)) {
+            $result["error"] = "Formato no permitido. Use JPG, PNG, GIF o WEBP.";
+            return $result;
+        }
+        if (getimagesize($file["tmp_name"]) === false) {
+            $result["error"] = "El archivo subido no es una imagen válida.";
+            return $result;
+        }
+
+        if (!is_dir(self::IMG_DIR)) {
+            mkdir(self::IMG_DIR, 0777, true);
+        }
+
+        $fileName = uniqid("prd_") . "." . $ext;
+        if (!move_uploaded_file($file["tmp_name"], self::IMG_DIR . $fileName)) {
+            $result["error"] = "No fue posible guardar la imagen en el servidor.";
+            return $result;
+        }
+
+        $result["path"] = self::IMG_DIR . $fileName;
+        return $result;
+    }
+
+    /**
+     * Elimina del disco una imagen local del producto.
+     * Nunca toca URLs externas (https://...), solo archivos dentro de public/imgs/products/.
+     */
+    private function deleteLocalImage(string $imgUrl): void
+    {
+        if ($imgUrl !== "" && strpos($imgUrl, self::IMG_DIR) === 0 && file_exists($imgUrl)) {
+            unlink($imgUrl);
+        }
     }
 }

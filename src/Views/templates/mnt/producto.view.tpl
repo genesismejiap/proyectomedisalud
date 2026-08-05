@@ -4,7 +4,7 @@
 </div>
 
 <div class="card-box" style="max-width:800px; margin:0 auto;">
-    <form action="index.php?page=Mnt_Producto" method="POST">
+    <form action="index.php?page=Mnt_Producto" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="mode" value="{{mode}}" />
         <input type="hidden" name="productId" value="{{productId}}" />
 
@@ -53,9 +53,31 @@
             </div>
         </div>
 
+        {{if hasImage}}
+        <div style="margin-bottom:1rem;">
+            <label>Imagen Actual del Producto</label>
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <img src="{{productImgUrl}}" alt="{{productName}}" style="width:90px; height:90px; object-fit:cover; border-radius:.75rem; border:1px solid #e2e8f0;" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&q=80';" />
+                {{ifnot readonly}}
+                <label style="display:flex; align-items:center; gap:.5rem; color:#dc2626; cursor:pointer; margin:0;">
+                    <input type="checkbox" name="deleteImage" value="1" style="width:auto;" /> Eliminar imagen actual
+                </label>
+                {{endifnot readonly}}
+            </div>
+        </div>
+        {{endif hasImage}}
+
+        {{ifnot readonly}}
+        <div style="margin-bottom:1rem;">
+            <label for="productImgFile">Subir Imagen del Producto (JPG, PNG, GIF o WEBP - Máx. 2MB)</label>
+            <input type="file" id="productImgFile" name="productImgFile" accept=".jpg,.jpeg,.png,.gif,.webp" />
+            {{if errorImg}}<div class="error">{{errorImg}}</div>{{endif errorImg}}
+        </div>
+        {{endifnot readonly}}
+
         <div style="margin-bottom:1.5rem;">
-            <label for="productImgUrl">URL de Imagen del Producto</label>
-            <input type="url" id="productImgUrl" name="productImgUrl" value="{{productImgUrl}}" {{if readonly}}disabled{{endif readonly}} placeholder="https://..." />
+            <label for="productImgUrl">URL de Imagen del Producto (alternativa a subir archivo)</label>
+            <input type="text" id="productImgUrl" name="productImgUrl" value="{{productImgUrl}}" {{if readonly}}disabled{{endif readonly}} placeholder="https://..." />
         </div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #e2e8f0; padding-top:1.5rem;">
@@ -63,11 +85,11 @@
                 <i class="fas fa-arrow-left"></i> Cancelar / Regresar
             </a>
 
-            {{if !readonly}}
+            {{ifnot readonly}}
             <button type="submit" class="btn btn-primary btn-lg">
                 <i class="fas fa-save"></i> Guardar Producto
             </button>
-            {{endif !readonly}}
+            {{endifnot readonly}}
 
             {{if showDelete}}
             <button type="submit" class="btn btn-danger btn-lg">

@@ -24,32 +24,35 @@
   --ms-shadow:        0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.05);
 }
 
-/* Private Shell Layout */
+/* Private Shell Layout
+   Usa las mismas variables del layout público (layout.css) para
+   conservar la identidad visual del index en el área privada. */
 body.private-shell {
   min-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
-  background: var(--ms-bg);
-  color: var(--ms-text);
+  background: var(--background);
+  color: var(--text);
   font-family: "Manrope", "Inter", Arial, sans-serif;
   font-size: 15px;
 }
 
-/* Header privado */
+/* Header privado (mismo estilo que el header público del index) */
 .private-shell .site-header {
   position: sticky;
   top: 0;
   width: 100%;
-  min-height: 64px;
-  padding: 10px 5%;
+  min-height: 74px;
+  padding: 14px 5%;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   flex-wrap: wrap;
-  background: #0f172a;
-  color: #fff;
-  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+  background: var(--surface);
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 3px 14px rgba(36, 86, 97, 0.07);
   z-index: 1000;
 }
 
@@ -57,15 +60,14 @@ body.private-shell {
 .private-shell .brand-lockup h1 {
   margin: 0;
   padding: 0;
-  color: #38bdf8;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: -.01em;
+  color: var(--primary);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 2rem;
 }
 .private-shell .brand-caption {
-  margin: 2px 0 0;
-  color: #94a3b8;
-  font-size: .78rem;
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: .82rem;
 }
 
 .private-shell .site-nav { position: static; width: auto; height: auto; }
@@ -81,30 +83,30 @@ body.private-shell {
   display: inline-flex;
   align-items: center;
   gap: .35rem;
-  padding: 8px 13px;
-  color: #cbd5e1;
+  padding: 10px 14px;
+  color: var(--text);
   font-size: .87rem;
   font-weight: 600;
   text-decoration: none;
-  border-radius: var(--ms-radius-sm);
+  border-radius: 9px;
   transition: background .15s, color .15s;
 }
 .private-shell .site-nav-list a:hover {
-  background: rgba(255,255,255,.08);
-  color: #fff;
+  background: #edf6f7;
+  color: var(--primary);
 }
 .private-shell .username {
   display: flex;
   align-items: center;
   gap: .5rem;
-  color: #94a3b8;
+  color: var(--muted);
   font-size: .85rem;
   margin-left: .5rem;
   padding-left: .75rem;
-  border-left: 1px solid #334155;
+  border-left: 1px solid var(--border);
 }
-.private-shell .username a { color: #94a3b8; }
-.private-shell .username a:hover { color: #f87171; }
+.private-shell .username a { color: var(--muted); }
+.private-shell .username a:hover { color: var(--ms-danger); }
 
 .private-shell .menu_toggle { display: none; }
 .private-shell .menu_toggle_icon { display: none; }
@@ -120,12 +122,11 @@ body.private-shell {
 }
 .private-shell .site-footer {
   width: 100%;
-  padding: 16px 0;
-  color: #94a3b8;
+  padding: 22px 0;
+  color: #ffffff;
   text-align: center;
   font-size: .82rem;
-  background: #0f172a;
-  border-top: 1px solid #1e293b;
+  background: var(--primary-dark);
 }
 
 /* Card Box */
@@ -186,6 +187,25 @@ body.private-shell {
 }
 .btn-sm { padding: .35rem .7rem; font-size: .8rem; }
 .btn-lg { padding: .75rem 1.6rem; font-size: .95rem; }
+
+/* Corrección: appstyle.css (regla "table a.btn") convierte los enlaces .btn
+   dentro de tablas en círculos oscuros de 2rem que tapan el texto.
+   Aquí se restaura el estilo mediSalud con mayor especificidad. */
+table a.btn {
+  width: auto;
+  height: auto;
+  border-radius: var(--ms-radius-sm);
+  border: 2px solid transparent;
+  background-color: transparent;
+  color: var(--ms-text);
+}
+table a.btn:hover { background-color: transparent; }
+table a.btn.btn-primary { background-color: var(--ms-primary); border-color: var(--ms-primary); color: #fff; }
+table a.btn.btn-primary:hover { background-color: var(--ms-primary-dark); border-color: var(--ms-primary-dark); color: #fff; }
+table a.btn.btn-danger { background-color: var(--ms-danger); border-color: var(--ms-danger); color: #fff; }
+table a.btn.btn-danger:hover { background-color: var(--ms-danger-dark); border-color: var(--ms-danger-dark); color: #fff; }
+table a.btn.btn-outline { background-color: transparent; border-color: var(--ms-primary); color: var(--ms-primary); }
+table a.btn.btn-outline:hover { background-color: var(--ms-primary-light); color: var(--ms-primary-dark); }
 
 /* Tabla */
 .medisalud-table {
@@ -296,15 +316,15 @@ body.private-shell {
     height: 38px;
     padding: 9px;
     cursor: pointer;
-    border: 1px solid #334155;
-    border-radius: var(--ms-radius-sm);
-    background: #1e293b;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    background: #ffffff;
   }
   .private-shell .menu_toggle_icon .hmb {
     width: 100%;
     height: 2px;
     margin: 4px 0;
-    background: #38bdf8;
+    background: var(--primary);
   }
   .private-shell .site-nav {
     display: none;

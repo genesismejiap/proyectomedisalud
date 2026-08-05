@@ -29,7 +29,6 @@
                 <th>Referencia</th>
                 <th>Cliente / Usuario</th>
                 <th>Fecha</th>
-                <th>Método</th>
                 <th>ISV</th>
                 <th>Total</th>
                 <th>Estado</th>
@@ -46,7 +45,6 @@
                     <div style="font-size:.8rem; color:#64748b;">{{useremail}}</div>
                 </td>
                 <td>{{fecha_formateada}}</td>
-                <td><span class="product-stock-badge stock-ok">{{txnpaymethod}}</span></td>
                 <td>L. {{txnisv}}</td>
                 <td><strong style="color:#16a34a;">L. {{txntotal}}</strong></td>
                 <td><span class="product-stock-badge stock-ok"><i class="fas fa-check"></i> {{txnstt}}</span></td>
@@ -66,7 +64,7 @@
 <div style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); display:flex; align-items:center; justify-content:center; z-index:9999; backdrop-filter:blur(4px);">
     <div style="background:#ffffff; width:90%; max-width:650px; border-radius:1.5rem; padding:2rem; max-height:90vh; overflow-y:auto; box-shadow:0 20px 40px rgba(0,0,0,0.2);">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:1rem; margin-bottom:1rem;">
-            <h3 style="margin:0; color:#0284c7;"><i class="fas fa-receipt"></i> Auditoría de Transacción #{{selectedTxn.txnid}}</h3>
+            <h3 style="margin:0; color:#0284c7;"><i class="fas fa-receipt"></i> Auditoría de Transacción #{{selectedTxnId}}</h3>
             <a href="index.php?page=Transacciones_GestionTransacciones" style="font-size:1.5rem; color:#64748b; text-decoration:none;">&times;</a>
         </div>
 
