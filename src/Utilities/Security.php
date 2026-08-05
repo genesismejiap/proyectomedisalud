@@ -15,6 +15,7 @@ class Security {
     public static function logout()
     {
         unset($_SESSION["login"]);
+        \Utilities\Nav::invalidateNavData();
     }
     public static function login($userId, $userName, $userEmail)
     {
@@ -51,7 +52,11 @@ class Security {
                 DaoSecurity::addNewFeature($function, $function, "ACT", $type);
             }
         }
-        return DaoSecurity::getFeatureByUsuario($userId, $function);
+        $isAuth = DaoSecurity::getFeatureByUsuario($userId, $function);
+        if (!$isAuth) {
+            error_log("IS_AUTHORIZED FAILED for User: $userId, Function: $function");
+        }
+        return $isAuth;
     }
     public static function isInRol($userId, $rol):bool
     {

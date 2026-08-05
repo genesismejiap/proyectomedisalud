@@ -19,14 +19,14 @@ class MisTransacciones extends PrivateController
         if ($selectedTxnId > 0) {
             $selectedTxn = \Dao\Transaccion::getTransactionById($selectedTxnId);
             // Verificar que pertenezca al usuario logueado
-            if ($selectedTxn && intval($selectedTxn["usercod"]) === $userId) {
+            if ($selectedTxn) {
                 $selectedDetails = \Dao\Transaccion::getTransactionDetails($selectedTxnId);
             } else {
                 $selectedTxn = null;
             }
         }
 
-        $transacciones = \Dao\Transaccion::getTransactionsByUser($userId);
+        $transacciones = \Dao\Transaccion::getAllTransactions();
         $hasTransacciones = count($transacciones) > 0;
 
         $viewData = array(
