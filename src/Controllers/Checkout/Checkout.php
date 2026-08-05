@@ -11,9 +11,9 @@ class Checkout extends PublicController
         $viewData = array();
         if ($this->isPostBack()) {
             $PayPalOrder = new \Utilities\Paypal\PayPalOrder(
-                "test" . (time() - 10000000),
-                "http://localhost:8080/mvc202402/index.php?page=Checkout_Error",
-                "http://localhost:8080/mvc202402/index.php?page=Checkout_Accept"
+                "test" . time(),
+                "http://localhost/proyecto/proyectomedisalud/index.php?page=Checkout_Error",
+                "http://localhost/proyecto/proyectomedisalud/index.php?page=Checkout_Accept"
             );
 
             $PayPalOrder->addItem("Test", "TestItem1", "PRD1", 100, 15, 1, "DIGITAL_GOODS");

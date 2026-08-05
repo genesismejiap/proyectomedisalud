@@ -1,5 +1,8 @@
 {
+    "require": {
+        "paypal/rest-api-sdk-php": "^1.14"
+    },
     "autoload": {
-      "psr-4": {"":"src/"}
+        "psr-4": {"": "src/"}
     }
 }
