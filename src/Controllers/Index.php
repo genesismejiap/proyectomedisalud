@@ -34,7 +34,7 @@ class Index extends PublicController
         $searchQuery = trim($_GET["search"] ?? "");
         $categoryFilter = trim($_GET["category"] ?? "");
 
-        // Obtener productos según filtros
+        
         if (!empty($searchQuery)) {
             $productos = \Dao\Productos::searchProducts($searchQuery, $categoryFilter);
         } elseif (!empty($categoryFilter)) {
@@ -43,12 +43,11 @@ class Index extends PublicController
             $productos = \Dao\Productos::getAll();
         }
 
-        // Agregar flag de stock
+        
         foreach ($productos as &$prod) {
             $prod["hasStock"] = intval($prod["productStock"] ?? 0) > 0;
         }
 
-        // Obtener categorías para los filtros
         $dbCategories = \Dao\Productos::getCategories();
         $categories = [];
         $categories[] = [

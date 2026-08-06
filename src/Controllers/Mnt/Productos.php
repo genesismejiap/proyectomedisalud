@@ -1,8 +1,5 @@
 <?php
-/**
- * Controlador: Lista de Productos (Mantenimiento)
- * Ruta: index.php?page=Mnt_Productos
- */
+
 namespace Controllers\Mnt;
 
 use Controllers\PrivateController;

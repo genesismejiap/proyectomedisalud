@@ -43,8 +43,7 @@ class Dao {
                 array(
                   \PDO::ATTR_EMULATE_PREPARES => true,
                   \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                  \PDO::ATTR_PERSISTENT => false //,
-                  // \PDO::MYSQL_ATTR_INIT_COMMAND => "SET time_zone = '". $_timezone ."'"
+                  \PDO::ATTR_PERSISTENT => false 
                 )
             );
         }

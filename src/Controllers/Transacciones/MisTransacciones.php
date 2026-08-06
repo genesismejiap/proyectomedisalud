@@ -11,14 +11,14 @@ class MisTransacciones extends PrivateController
     {
         $userId = Security::getUserId();
 
-        // Si viene un ID específico por GET para ver el detalle modal/pantalla
+      
         $selectedTxnId = isset($_GET["txnid"]) ? intval($_GET["txnid"]) : 0;
         $selectedTxn = null;
         $selectedDetails = array();
 
         if ($selectedTxnId > 0) {
             $selectedTxn = \Dao\Transaccion::getTransactionById($selectedTxnId);
-            // Verificar que pertenezca al usuario logueado
+            
             if ($selectedTxn) {
                 $selectedDetails = \Dao\Transaccion::getTransactionDetails($selectedTxnId);
             } else {

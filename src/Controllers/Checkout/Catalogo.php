@@ -12,9 +12,7 @@
  */
  namespace Controllers\Checkout;
 
-// ---------------------------------------------------------------
-// Sección de imports
-// ---------------------------------------------------------------
+
 use Controllers\PrivateController;
 
 /**

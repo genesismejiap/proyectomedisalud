@@ -9,10 +9,7 @@ class Cart extends PrivateController
 {
     public function run(): void
     {
-        /*
-         * Obtiene el código del usuario que inició sesión.
-         * Revisa la nota al final sobre este método.
-         */
+      
         $userCod = \Utilities\Security::getUserId();
 
         if (empty($userCod)) {
@@ -27,9 +24,7 @@ class Cart extends PrivateController
             $productId = intval($_POST["productId"] ?? 0);
             $quantity = intval($_POST["quantity"] ?? 1);
 
-            /*
-             * AGREGAR PRODUCTO
-             */
+            
             if ($action === "add" && $productId > 0) {
                 $product = \Dao\Productos::getById($productId);
 
@@ -61,9 +56,7 @@ class Cart extends PrivateController
                 }
             }
 
-            /*
-             * ACTUALIZAR CANTIDAD
-             */
+            
             elseif (
                 $action === "update" &&
                 $productId > 0
@@ -87,9 +80,7 @@ class Cart extends PrivateController
                 }
             }
 
-            /*
-             * ELIMINAR PRODUCTO
-             */
+            
             elseif (
                 $action === "delete" &&
                 $productId > 0
@@ -100,9 +91,7 @@ class Cart extends PrivateController
                 );
             }
 
-            /*
-             * VACIAR CARRITO
-             */
+            
             elseif ($action === "clear") {
                 CartDao::clearCart($userCod);
             }
@@ -113,9 +102,7 @@ class Cart extends PrivateController
             return;
         }
 
-        /*
-         * Obtiene solamente el carrito del usuario actual.
-         */
+        
         $cartData = CartDao::getCartSummary($userCod);
 
         $items = array();
