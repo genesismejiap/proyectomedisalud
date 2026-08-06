@@ -1,342 +1,375 @@
 ﻿/* =====================================================
-   private.css — Estilos del area privada mediSalud
+   private.css — Área privada de Farmacia MediSalud
    ===================================================== */
 
-/* Variables */
 :root {
-  --ms-primary:       #0284c7;
-  --ms-primary-dark:  #0369a1;
-  --ms-primary-light: #e0f2fe;
-  --ms-danger:        #dc2626;
-  --ms-danger-dark:   #b91c1c;
-  --ms-danger-light:  #fee2e2;
-  --ms-success:       #16a34a;
+  --ms-primary: #167d83;
+  --ms-primary-dark: #0f5c61;
+  --ms-primary-hover: #126c72;
+  --ms-primary-light: #ddf3f2;
+  --ms-primary-soft: #f0f9f8;
+
+  --ms-secondary: #3aa6a0;
+
+  --ms-danger: #dc2626;
+  --ms-danger-dark: #b91c1c;
+  --ms-danger-light: #fee2e2;
+
+  --ms-success: #16834a;
+  --ms-success-dark: #116a3b;
   --ms-success-light: #dcfce7;
-  --ms-warning:       #d97706;
-  --ms-warning-light: #fef3c7;
-  --ms-text:          #1e293b;
-  --ms-muted:         #64748b;
-  --ms-border:        #e2e8f0;
-  --ms-surface:       #ffffff;
-  --ms-bg:            #f1f5f9;
-  --ms-radius:        .75rem;
-  --ms-radius-sm:     .375rem;
-  --ms-shadow:        0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.05);
+
+  --ms-warning: #c87910;
+  --ms-warning-dark: #915509;
+  --ms-warning-light: #fff3cf;
+
+  --ms-text: #203438;
+  --ms-text-dark: #14272b;
+  --ms-muted: #687d81;
+
+  --ms-border: #d9e7e8;
+  --ms-border-strong: #c5d9db;
+
+  --ms-surface: #ffffff;
+  --ms-surface-soft: #f8fbfb;
+  --ms-bg: #f3f8f8;
+
+  --ms-radius-sm: 9px;
+  --ms-radius: 14px;
+  --ms-radius-lg: 18px;
+
+  --ms-shadow-sm:
+    0 2px 6px rgba(18, 68, 73, 0.05),
+    0 7px 18px rgba(18, 68, 73, 0.04);
+
+  --ms-shadow:
+    0 8px 24px rgba(18, 68, 73, 0.08),
+    0 2px 8px rgba(18, 68, 73, 0.04);
+
+  --ms-shadow-lg:
+    0 18px 42px rgba(18, 68, 73, 0.12);
+
+  --ms-transition: 0.2s ease;
 }
 
-/* Private Shell Layout
-   Usa las mismas variables del layout público (layout.css) para
-   conservar la identidad visual del index en el área privada. */
+/* =====================================================
+   AJUSTES GENERALES
+   ===================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
 body.private-shell {
   min-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
-  background: var(--background);
-  color: var(--text);
-  font-family: "Manrope", "Inter", Arial, sans-serif;
+  overflow-x: hidden;
+  color: var(--ms-text);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(58, 166, 160, 0.08),
+      transparent 27%
+    ),
+    var(--ms-bg);
+  font-family: "Manrope", "Inter", "Segoe UI", Arial, sans-serif;
   font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Header privado (mismo estilo que el header público del index) */
-.private-shell .site-header {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  min-height: 74px;
-  padding: 14px 5%;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  background: var(--surface);
-  color: var(--text);
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 3px 14px rgba(36, 86, 97, 0.07);
-  z-index: 1000;
+.private-shell img {
+  max-width: 100%;
 }
 
-.private-shell .brand-lockup { flex: 1; }
-.private-shell .brand-lockup h1 {
-  margin: 0;
-  padding: 0;
-  color: var(--primary);
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 2rem;
-}
-.private-shell .brand-caption {
-  margin: 3px 0 0;
-  color: var(--muted);
-  font-size: .82rem;
-}
-
-.private-shell .site-nav { position: static; width: auto; height: auto; }
-.private-shell .site-nav-list {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.private-shell .site-nav-list a {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  padding: 10px 14px;
-  color: var(--text);
-  font-size: .87rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 9px;
-  transition: background .15s, color .15s;
-}
-.private-shell .site-nav-list a:hover {
-  background: #edf6f7;
-  color: var(--primary);
-}
-.private-shell .username {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  color: var(--muted);
-  font-size: .85rem;
-  margin-left: .5rem;
-  padding-left: .75rem;
-  border-left: 1px solid var(--border);
-}
-.private-shell .username a { color: var(--muted); }
-.private-shell .username a:hover { color: var(--ms-danger); }
-
-.private-shell .menu_toggle { display: none; }
-.private-shell .menu_toggle_icon { display: none; }
-
-.private-shell .site-main {
-  flex: 1;
-  width: 100%;
-  padding: 32px 0;
-}
-.private-shell .page-shell {
-  width: min(1200px, 94%);
-  margin: 0 auto;
-}
-.private-shell .site-footer {
-  width: 100%;
-  padding: 22px 0;
-  color: #ffffff;
-  text-align: center;
-  font-size: .82rem;
-  background: var(--primary-dark);
-}
-
-/* Card Box */
-.card-box {
-  background: var(--ms-surface);
-  border: 1px solid var(--ms-border);
-  border-radius: var(--ms-radius);
-  box-shadow: var(--ms-shadow);
-  padding: 1.75rem;
-  margin-bottom: 1.5rem;
-}
-
-/* Botones */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .4rem;
-  padding: .6rem 1.2rem;
-  font-size: .88rem;
-  font-weight: 600;
-  border: 2px solid transparent;
-  border-radius: var(--ms-radius-sm);
-  cursor: pointer;
-  text-decoration: none;
-  transition: background .15s, box-shadow .15s, border-color .15s, color .15s;
-  white-space: nowrap;
-  line-height: 1;
-}
-.btn-primary {
-  background: var(--ms-primary);
-  color: #fff;
-  border-color: var(--ms-primary);
-}
-.btn-primary:hover {
-  background: var(--ms-primary-dark);
-  border-color: var(--ms-primary-dark);
-  box-shadow: 0 3px 10px rgba(2,132,199,.3);
-  color: #fff;
-}
-.btn-danger {
-  background: var(--ms-danger);
-  color: #fff;
-  border-color: var(--ms-danger);
-}
-.btn-danger:hover {
-  background: var(--ms-danger-dark);
-  border-color: var(--ms-danger-dark);
-  color: #fff;
-}
-.btn-outline {
-  background: transparent;
-  color: var(--ms-primary);
-  border-color: var(--ms-primary);
-}
-.btn-outline:hover {
-  background: var(--ms-primary-light);
-  color: var(--ms-primary-dark);
-}
-.btn-sm { padding: .35rem .7rem; font-size: .8rem; }
-.btn-lg { padding: .75rem 1.6rem; font-size: .95rem; }
-
-/* Corrección: appstyle.css (regla "table a.btn") convierte los enlaces .btn
-   dentro de tablas en círculos oscuros de 2rem que tapan el texto.
-   Aquí se restaura el estilo mediSalud con mayor especificidad. */
-table a.btn {
-  width: auto;
-  height: auto;
-  border-radius: var(--ms-radius-sm);
-  border: 2px solid transparent;
-  background-color: transparent;
-  color: var(--ms-text);
-}
-table a.btn:hover { background-color: transparent; }
-table a.btn.btn-primary { background-color: var(--ms-primary); border-color: var(--ms-primary); color: #fff; }
-table a.btn.btn-primary:hover { background-color: var(--ms-primary-dark); border-color: var(--ms-primary-dark); color: #fff; }
-table a.btn.btn-danger { background-color: var(--ms-danger); border-color: var(--ms-danger); color: #fff; }
-table a.btn.btn-danger:hover { background-color: var(--ms-danger-dark); border-color: var(--ms-danger-dark); color: #fff; }
-table a.btn.btn-outline { background-color: transparent; border-color: var(--ms-primary); color: var(--ms-primary); }
-table a.btn.btn-outline:hover { background-color: var(--ms-primary-light); color: var(--ms-primary-dark); }
-
-/* Tabla */
-.medisalud-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .88rem;
-}
-.medisalud-table thead tr {
-  background: #f8fafc;
-  border-bottom: 2px solid var(--ms-border);
-}
-.medisalud-table thead th {
-  padding: .9rem 1rem;
-  text-align: left;
-  font-weight: 700;
-  font-size: .8rem;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--ms-muted);
-  white-space: nowrap;
-}
-.medisalud-table tbody tr {
-  border-bottom: 1px solid var(--ms-border);
-  transition: background .1s;
-}
-.medisalud-table tbody tr:last-child { border-bottom: none; }
-.medisalud-table tbody tr:hover { background: #f8fafc; }
-.medisalud-table tbody td {
-  padding: .8rem 1rem;
-  vertical-align: middle;
-}
-
-/* Badges de stock */
-.product-stock-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: .25rem .65rem;
-  border-radius: 99px;
-  font-size: .78rem;
-  font-weight: 700;
-}
-.stock-ok { background: var(--ms-success-light); color: var(--ms-success); }
-.stock-low { background: var(--ms-warning-light); color: var(--ms-warning); }
-.stock-out { background: var(--ms-danger-light); color: var(--ms-danger); }
-
-/* Pill categoria */
-.category-pill {
-  display: inline-block;
-  padding: .3rem .75rem;
-  background: var(--ms-primary-light);
-  color: var(--ms-primary-dark);
-  border-radius: 99px;
-  font-size: .78rem;
-  font-weight: 600;
-}
-
-/* Formularios */
-.card-box label {
-  display: block;
-  margin-bottom: .35rem;
-  font-size: .85rem;
-  font-weight: 600;
-  color: var(--ms-text);
-}
-.card-box input[type="text"],
-.card-box input[type="number"],
-.card-box input[type="url"],
-.card-box input[type="email"],
-.card-box select,
-.card-box textarea {
-  width: 100%;
-  padding: .6rem .85rem;
-  font-size: .92rem;
-  border: 1.5px solid var(--ms-border);
-  border-radius: var(--ms-radius-sm);
-  background: #fff;
-  color: var(--ms-text);
-  transition: border-color .15s, box-shadow .15s;
-  outline: none;
+.private-shell a,
+.private-shell button,
+.private-shell input,
+.private-shell select,
+.private-shell textarea {
   font-family: inherit;
 }
-.card-box input:focus,
-.card-box select:focus,
-.card-box textarea:focus {
-  border-color: var(--ms-primary);
-  box-shadow: 0 0 0 3px rgba(2,132,199,.15);
+
+/* =====================================================
+   ENCABEZADO PRIVADO
+   ===================================================== */
+
+body.private-shell .site-header {
+  position: sticky !important;
+  top: 0 !important;
+  width: 100% !important;
+  min-height: 78px !important;
+  padding: 14px 4.5% !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 22px !important;
+  flex-wrap: wrap !important;
+
+  color: var(--ms-text) !important;
+  background: rgba(255, 255, 255, 0.97) !important;
+  border-bottom: 1px solid var(--ms-border) !important;
+  box-shadow: 0 4px 18px rgba(18, 68, 73, 0.07) !important;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  z-index: 1000 !important;
 }
-.card-box input:disabled,
-.card-box select:disabled,
-.card-box textarea:disabled {
-  background: #f1f5f9;
-  color: var(--ms-muted);
-  cursor: not-allowed;
+
+/* Marca */
+
+body.private-shell .site-header .brand-lockup {
+  order: 1 !important;
+  flex: 1 1 220px !important;
+  min-width: 220px !important;
+  padding: 0 !important;
 }
-.card-box textarea { resize: vertical; min-height: 80px; }
-.card-box .error {
-  margin-top: .3rem;
-  font-size: .82rem;
-  color: var(--ms-danger);
+
+body.private-shell .site-header .brand-lockup h1 {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--ms-primary) !important;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.7rem, 3vw, 2.05rem) !important;
+  font-weight: 700;
+  line-height: 1.05 !important;
+  letter-spacing: -0.03em;
+}
+
+body.private-shell .site-header .brand-caption {
+  margin: 5px 0 0 !important;
+  color: var(--ms-muted) !important;
+  font-size: 0.79rem !important;
   font-weight: 500;
 }
 
-/* Responsive */
+/* Encabezado completo */
+body.private-shell .site-header {
+  position: sticky !important;
+  top: 0 !important;
+  display: flex !important;
+  width: 100% !important;
+  min-height: auto !important;
+  padding: 0 !important;
+  align-items: center !important;
+  gap: 0 !important;
+  flex-wrap: wrap !important;
+
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--ms-border) !important;
+  box-shadow: 0 3px 14px rgba(18, 68, 73, 0.08) !important;
+  z-index: 1000 !important;
+}
+
+/* Nombre de la farmacia */
+body.private-shell .site-header .brand-lockup {
+  order: 1 !important;
+  flex: 1 1 auto !important;
+  min-width: 260px !important;
+  padding: 18px 5% 14px !important;
+}
+
+body.private-shell .site-header .brand-lockup h1 {
+  margin: 0 !important;
+  color: var(--ms-primary) !important;
+  font-size: 2rem !important;
+  line-height: 1.1 !important;
+}
+
+body.private-shell .site-header .brand-caption {
+  margin: 5px 0 0 !important;
+}
+
+/* Usuario a la derecha */
+body.private-shell .site-header .username {
+  order: 2 !important;
+  width: auto !important;
+  margin: 0 5% 0 auto !important;
+  padding: 8px 0 8px 16px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+
+  color: var(--ms-muted) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 1px solid var(--ms-border) !important;
+  border-radius: 0 !important;
+}
+
+/* Barra negra de navegación */
+body.private-shell .site-header nav,
+body.private-shell .site-header .site-nav {
+  position: static !important;
+  order: 3 !important;
+
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 5% !important;
+
+  overflow: visible !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+
+  background: #111111 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Quitar decoración lateral generada por appstyle */
+body.private-shell .site-header nav::before,
+body.private-shell .site-header .site-nav::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Lista horizontal */
+body.private-shell .site-header nav ul,
+body.private-shell .site-header .site-nav-list {
+  position: static !important;
+  display: flex !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  align-items: center !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  list-style: none !important;
+}
+
+/* Elementos */
+body.private-shell .site-header nav ul li,
+body.private-shell .site-header .site-nav-list li {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  list-style: none !important;
+}
+
+/* Enlaces */
+body.private-shell .site-header nav ul li a,
+body.private-shell .site-header .site-nav-list li a {
+  display: inline-flex !important;
+  width: auto !important;
+  min-height: 46px !important;
+  padding: 13px 16px !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+
+  color: #ffffff !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  font-size: 0.87rem !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+
+  transform: none !important;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease !important;
+}
+
+body.private-shell .site-header nav ul li a:hover,
+body.private-shell .site-header .site-nav-list li a:hover {
+  color: #ffffff !important;
+  background: var(--ms-primary) !important;
+  transform: none !important;
+}
+
+/* Evitar que main.less agregue separación incorrecta */
+body.private-shell .site-main {
+  margin-top: 0 !important;
+}
+
+/* =====================================================
+   MENÚ MÓVIL
+   ===================================================== */
+
 @media (max-width: 820px) {
-  .private-shell .menu_toggle_icon {
-    display: block;
-    width: 40px;
-    height: 38px;
-    padding: 9px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    background: #ffffff;
+  body.private-shell .site-header {
+    padding: 0 !important;
   }
-  .private-shell .menu_toggle_icon .hmb {
-    width: 100%;
-    height: 2px;
-    margin: 4px 0;
-    background: var(--primary);
+
+  body.private-shell .site-header .brand-lockup {
+    min-width: 0 !important;
+    padding: 14px 4% !important;
   }
-  .private-shell .site-nav {
-    display: none;
-    width: 100%;
-    order: 10;
-    padding-bottom: .5rem;
+
+  body.private-shell .site-header .brand-lockup h1 {
+    font-size: 1.65rem !important;
   }
-  .private-shell .menu_toggle:checked ~ .site-nav { display: block; }
-  .private-shell .site-nav-list { flex-direction: column; align-items: stretch; }
-  .private-shell .site-nav-list a { width: 100%; padding: .75rem 1rem; }
-  .card-box { padding: 1.1rem; }
-  .medisalud-table { font-size: .82rem; }
-  .medisalud-table thead th,
-  .medisalud-table tbody td { padding: .65rem .75rem; }
+
+  body.private-shell .site-header .username {
+    order: 3 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 10px 4% !important;
+
+    justify-content: space-between !important;
+    background: var(--ms-primary-soft) !important;
+    border: 0 !important;
+  }
+
+  body.private-shell .site-header .menu_toggle_icon {
+    order: 2 !important;
+    display: flex !important;
+    margin-right: 4% !important;
+  }
+
+  body.private-shell .site-header nav,
+  body.private-shell .site-header .site-nav {
+    order: 4 !important;
+    display: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  body.private-shell .menu_toggle:checked ~ nav,
+  body.private-shell .menu_toggle:checked ~ .site-nav {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  body.private-shell .site-header nav ul,
+  body.private-shell .site-header .site-nav-list {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 6px !important;
+  }
+
+  body.private-shell .site-header nav ul li a,
+  body.private-shell .site-header .site-nav-list li a {
+    width: 100% !important;
+    justify-content: flex-start !important;
+    padding: 13px 15px !important;
+  }
 }

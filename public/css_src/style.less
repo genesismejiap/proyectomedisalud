@@ -1,46 +1,113 @@
 @primary_text: #ffffff;
-@primary_bg: #000000;
-@primary_bg300: #999999;
-@primary_bg800: #000000;
-@primary_bg800_text: #fff;
+@primary_bg: #167d83;
+@primary_bg300: #d9efee;
+@primary_bg800: #0f5c61;
+@primary_bg800_text: #ffffff;
 
-@secondary_text: #000;
-@secondary_bg: #bebebe;
-@secondary_bg300: #e6e6e6;
-@secondary_bg800: #494949;
-@secondary_bg800_text: #fff;
-
-@primary_action_bg: #25a8ff;
-@primary_action_tx: #000;
-@secondary_action_bg: #0084ff;
-@secondary_action_txt: #000;
-
-@alert: #c21010;
-@warning: #bb980d;
-@info: #3236ae;
+@secondary_text: #203438;
+@secondary_bg: #f3f8f8;
+@secondary_bg300: #edf5f5;
+@secondary_bg800: #526b70;
+@secondary_bg800_text: #ffffff;
 
 
-/* BreakPoints*/
+@primary_action_bg: #167d83;
+@primary_action_tx: #ffffff;
+
+@secondary_action_bg: #3aa6a0;
+@secondary_action_txt: #ffffff;
+
+@alert: #dc2626;
+@warning: #c87910;
+@info: #2563a8;
+@success: #16834a;
+
+
+@background: #f3f8f8;
+@surface: #ffffff;
+@surfaceSoft: #f8fbfb;
+
+
+@textPrimary: #203438;
+@textDark: #14272b;
+@textMuted: #687d81;
+
+
+@borderColor: #d9e7e8;
+@borderStrong: #c5d9db;
+
+
+@radiusSmall: 8px;
+@radiusMedium: 12px;
+@radiusLarge: 18px;
+
+
+@shadowSmall:
+  0 2px 6px rgba(18, 68, 73, 0.05),
+  0 6px 16px rgba(18, 68, 73, 0.04);
+
+@shadowMedium:
+  0 8px 24px rgba(18, 68, 73, 0.08),
+  0 2px 8px rgba(18, 68, 73, 0.04);
+
+@shadowLarge:
+  0 18px 42px rgba(18, 68, 73, 0.12);
+
+
+@transitionFast: 0.2s ease;
+
 @mediumDevices: 568px;
 @largeDevices: 1024px;
 @extralargeDevices: 1200px;
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  color: @textPrimary;
+  background-color: @background;
+  font-family: "Manrope", "Segoe UI", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+
 @import "breakpoints.less";
 @import "grid.less";
-
-
 @import "modal.less";
-
 @import "utilities.less";
+
+
 @import "main.less";
 @import "menu.less";
 @import "form.less";
 @import "table.less";
 
-/*Custom CSS*/
+
 @import "hero.less";
 @import "layout.less";
+

@@ -1,16 +1,31 @@
-/* ==================================================
-   LAYOUT PÚBLICO - MEDISALUD
-   Archivo: layout.less
-================================================== */
+@layoutPrimary: #167d83;
+@layoutPrimaryDark: #0f5c61;
+@layoutSecondary: #3aa6a0;
 
-/* Colores propios del layout */
-@layoutPrimary: #2d7d8c;
-@layoutPrimaryDark: #205b66;
-@layoutBackground: #f4f8f9;
+@layoutBackground: #f3f8f8;
 @layoutSurface: #ffffff;
-@layoutText: #26383d;
-@layoutMuted: #6c7f85;
-@layoutBorder: #dbe7e9;
+@layoutSurfaceSoft: #f8fbfb;
+
+@layoutText: #203438;
+@layoutTextDark: #14272b;
+@layoutMuted: #687d81;
+
+@layoutBorder: #d9e7e8;
+@layoutBorderStrong: #c5d9db;
+
+@layoutRadiusSmall: 9px;
+@layoutRadiusMedium: 14px;
+@layoutRadiusLarge: 20px;
+
+@layoutShadowSmall:
+  0 2px 6px rgba(18, 68, 73, 0.05),
+  0 7px 18px rgba(18, 68, 73, 0.04);
+
+@layoutShadowMedium:
+  0 8px 26px rgba(18, 68, 73, 0.08),
+  0 2px 8px rgba(18, 68, 73, 0.04);
+
+@layoutTransition: 0.2s ease;
 
 /* Estructura general */
 
@@ -19,9 +34,29 @@ body.public-shell {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-color: @layoutBackground;
+  overflow-x: hidden;
   color: @layoutText;
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(58, 166, 160, 0.08),
+      transparent 28%
+    ),
+    @layoutBackground;
+  font-family: "Manrope", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.public-shell *,
+.public-shell *::before,
+.public-shell *::after {
+  box-sizing: border-box;
+}
+
+.public-shell img {
+  max-width: 100%;
 }
 
 /* Encabezado */
@@ -30,16 +65,18 @@ body.public-shell {
   position: sticky;
   top: 0;
   width: 100%;
-  min-height: 74px;
+  min-height: 78px;
   padding: 14px 5%;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
   flex-wrap: wrap;
-  background-color: @layoutSurface;
   color: @layoutText;
-  border-bottom: 1px solid @layoutBorder;
-  box-shadow: 0 3px 14px rgba(36, 86, 97, 0.07);
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(217, 231, 232, 0.92);
+  box-shadow: 0 4px 18px rgba(18, 68, 73, 0.07);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   z-index: 1000;
 }
 
@@ -47,22 +84,26 @@ body.public-shell {
 
 .public-shell .brand-lockup {
   flex: 1;
-  min-width: 180px;
+  min-width: 190px;
 }
 
 .public-shell .brand-lockup h1 {
   margin: 0;
   padding: 0;
   color: @layoutPrimary;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2rem;
-  line-height: 1.15;
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 .public-shell .brand-caption {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: @layoutMuted;
-  font-size: 0.82rem;
+  font-size: 0.79rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 /* Navegación */
@@ -73,14 +114,14 @@ body.public-shell {
   height: auto;
   margin: 0;
   transform: none;
-  background-color: transparent;
   color: @layoutText;
+  background: transparent;
 }
 
 .public-shell .site-nav-list {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -95,24 +136,52 @@ body.public-shell {
 }
 
 .public-shell .site-nav-list li a {
+  position: relative;
   display: inline-flex;
+  min-height: 42px;
+  padding: 10px 15px;
   align-items: center;
-  padding: 10px 14px;
+  justify-content: center;
   color: @layoutText !important;
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1;
   text-decoration: none;
-  border-radius: 9px;
+  border-radius: 10px;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
+    color @layoutTransition,
+    background @layoutTransition,
+    transform @layoutTransition;
 }
 
-.public-shell .site-nav-list li a:hover {
+.public-shell .site-nav-list li a::after {
+  position: absolute;
+  right: 15px;
+  bottom: 6px;
+  left: 15px;
+  height: 2px;
+  content: "";
+  background: @layoutPrimary;
+  border-radius: 999px;
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition:
+    opacity @layoutTransition,
+    transform @layoutTransition;
+}
+
+.public-shell .site-nav-list li a:hover,
+.public-shell .site-nav-list li a:focus-visible {
   color: @layoutPrimary !important;
-  background-color: #edf6f7;
+  background: #edf7f6;
+  outline: none;
   transform: translateY(-1px);
+}
+
+.public-shell .site-nav-list li a:hover::after,
+.public-shell .site-nav-list li a:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 /* Menú móvil */
@@ -133,22 +202,22 @@ body.public-shell {
   width: 100%;
   min-height: auto;
   margin: 0;
-  padding: 36px 0;
+  padding: 42px 0 52px;
 }
 
 .public-shell .page-shell {
   width: 90%;
-  max-width: 1120px;
+  max-width: 1160px;
   margin: 0 auto;
 }
 
 .public-shell .site-main > .page-shell {
   min-height: 420px;
-  padding: 28px;
-  background-color: @layoutSurface;
+  padding: clamp(22px, 4vw, 38px);
+  background: rgba(255, 255, 255, 0.97);
   border: 1px solid @layoutBorder;
-  border-radius: 14px;
-  box-shadow: 0 8px 22px rgba(36, 86, 97, 0.08);
+  border-radius: @layoutRadiusLarge;
+  box-shadow: @layoutShadowMedium;
 }
 
 /* Títulos y textos */
@@ -157,7 +226,14 @@ body.public-shell {
 .public-shell h2,
 .public-shell h3,
 .public-shell h4 {
-  color: @layoutPrimaryDark;
+  color: @layoutTextDark;
+  line-height: 1.25;
+}
+
+.public-shell h2 {
+  margin-top: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.025em;
 }
 
 .public-shell p {
@@ -168,6 +244,9 @@ body.public-shell {
 
 .public-shell a {
   color: @layoutPrimary;
+  transition:
+    color @layoutTransition,
+    opacity @layoutTransition;
 }
 
 .public-shell a:hover {
@@ -180,20 +259,32 @@ body.public-shell {
 .public-shell input[type="submit"],
 .public-shell input[type="button"],
 .public-shell .btn {
+  display: inline-flex;
   min-height: 42px;
-  padding: 10px 18px;
+  padding: 10px 17px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   color: #ffffff;
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  text-decoration: none;
+  background:
+    linear-gradient(
+      135deg,
+      @layoutPrimary,
+      @layoutSecondary
+    );
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 5px 14px rgba(22, 125, 131, 0.2);
   cursor: pointer;
-  background-color: @layoutPrimary;
-  border: 0;
-  border-radius: 9px;
+  font-family: "Manrope", "Segoe UI", Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
   transition:
-    background-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform @layoutTransition,
+    box-shadow @layoutTransition,
+    filter @layoutTransition;
 }
 
 .public-shell button:hover,
@@ -201,9 +292,22 @@ body.public-shell {
 .public-shell input[type="button"]:hover,
 .public-shell .btn:hover {
   color: #ffffff;
-  background-color: @layoutPrimaryDark;
+  filter: brightness(0.97);
+  box-shadow: 0 8px 18px rgba(22, 125, 131, 0.27);
   transform: translateY(-1px);
-  box-shadow: 0 5px 14px rgba(45, 125, 140, 0.18);
+}
+
+.public-shell button:active,
+.public-shell input[type="submit"]:active,
+.public-shell input[type="button"]:active,
+.public-shell .btn:active {
+  transform: translateY(0);
+}
+
+.public-shell button:focus-visible,
+.public-shell .btn:focus-visible {
+  outline: 3px solid rgba(22, 125, 131, 0.2);
+  outline-offset: 3px;
 }
 
 /* Formularios */
@@ -211,7 +315,8 @@ body.public-shell {
 .public-shell label {
   display: block;
   margin-bottom: 6px;
-  color: @layoutText;
+  color: @layoutTextDark;
+  font-size: 0.87rem;
   font-weight: 700;
 }
 
@@ -221,17 +326,18 @@ body.public-shell {
   width: 100%;
   min-height: 44px;
   margin-bottom: 15px;
-  padding: 11px 13px;
+  padding: 10px 13px;
   color: @layoutText;
-  font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-  font-size: 0.95rem;
-  background-color: #ffffff;
-  border: 1px solid @layoutBorder;
-  border-radius: 9px;
+  background: @layoutSurface;
+  border: 1.5px solid @layoutBorderStrong;
+  border-radius: 10px;
   outline: none;
+  font-family: "Manrope", "Segoe UI", Arial, sans-serif;
+  font-size: 0.93rem;
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color @layoutTransition,
+    box-shadow @layoutTransition,
+    background @layoutTransition;
 }
 
 .public-shell textarea {
@@ -239,61 +345,92 @@ body.public-shell {
   resize: vertical;
 }
 
+.public-shell input:hover,
+.public-shell select:hover,
+.public-shell textarea:hover {
+  border-color: darken(@layoutBorderStrong, 7%);
+}
+
 .public-shell input:focus,
 .public-shell select:focus,
 .public-shell textarea:focus {
+  background: #ffffff;
   border-color: @layoutPrimary;
-  box-shadow: 0 0 0 3px rgba(45, 125, 140, 0.14);
+  box-shadow: 0 0 0 4px rgba(22, 125, 131, 0.12);
+}
+
+.public-shell input::placeholder,
+.public-shell textarea::placeholder {
+  color: #93a4a7;
 }
 
 /* Tablas */
 
 .public-shell table {
   width: 100%;
-  border-collapse: collapse;
-  background-color: #ffffff;
-  border-radius: 10px;
   overflow: hidden;
+  background: #ffffff;
+  border-collapse: collapse;
+  border: 1px solid @layoutBorder;
+  border-radius: @layoutRadiusMedium;
 }
 
 .public-shell th,
 .public-shell td {
-  padding: 12px 14px;
+  padding: 13px 15px;
   text-align: left;
   border-bottom: 1px solid @layoutBorder;
 }
 
 .public-shell th {
   color: @layoutPrimaryDark;
-  background-color: #edf6f7;
+  background:
+    linear-gradient(
+      180deg,
+      #edf7f6,
+      @layoutSurfaceSoft
+    );
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
 }
 
 .public-shell tbody tr:nth-child(even) {
-  background-color: #f8fbfb;
+  background: #fbfdfd;
 }
 
 .public-shell tbody tr:hover {
-  background-color: #eef7f7;
+  background: #eef8f7;
+  box-shadow: inset 3px 0 0 @layoutPrimary;
+}
+
+.public-shell tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 /* Mensajes */
 
 .public-shell .error,
 .public-shell .alert-error {
-  padding: 11px 14px;
-  color: #962f2f;
-  background-color: #fff0f0;
+  padding: 12px 14px;
+  color: #a22020;
+  background: #fff0f0;
   border: 1px solid #efc9c9;
-  border-radius: 9px;
+  border-radius: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
 }
 
 .public-shell .success,
 .public-shell .alert-success {
-  padding: 11px 14px;
-  color: #286753;
-  background-color: #eef9f5;
+  padding: 12px 14px;
+  color: #1f6b4e;
+  background: #eef9f5;
   border: 1px solid #c2e4d8;
-  border-radius: 9px;
+  border-radius: 10px;
+  font-size: 0.86rem;
+  font-weight: 600;
 }
 
 /* Footer */
@@ -301,105 +438,166 @@ body.public-shell {
 .public-shell .site-footer {
   width: 100%;
   margin: 0;
-  padding: 22px 0;
-  color: #ffffff;
+  padding: 25px 5%;
+  color: rgba(255, 255, 255, 0.92);
   text-align: center;
-  background-color: @layoutPrimaryDark;
+  background:
+    linear-gradient(
+      135deg,
+      @layoutPrimaryDark,
+      #164c51
+    );
+  box-shadow: 0 -4px 16px rgba(18, 68, 73, 0.08);
 }
 
 .public-shell .footer-shell {
   width: 90%;
-  max-width: 1120px;
+  max-width: 1160px;
   margin: 0 auto;
-  color: #ffffff;
+  color: inherit;
+}
+
+.public-shell .site-footer p {
+  margin: 0;
+  color: inherit;
+  font-size: 0.84rem;
 }
 
 /* Responsive */
 
 @media (max-width: 820px) {
   .public-shell .site-header {
-    gap: 12px;
-    padding: 13px 5%;
+    gap: 14px;
+    padding: 13px 4%;
   }
 
   .public-shell .brand-lockup {
     order: 1;
     flex: 1;
+    min-width: 0;
   }
 
   .public-shell .menu_toggle_icon {
     order: 2;
-    display: block;
-    width: 40px;
-    height: 38px;
+    display: flex;
+    width: 43px;
+    height: 41px;
     margin: 0;
     padding: 9px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    background-color: #ffffff;
+    background: #ffffff;
     border: 1px solid @layoutBorder;
-    border-radius: 9px;
+    border-radius: 10px;
+    box-shadow: @layoutShadowSmall;
   }
 
   .public-shell .menu_toggle_icon .hmb {
     position: relative;
-    float: none;
     width: 100%;
     height: 2px;
-    margin: 4px 0;
-    background-color: @layoutPrimary;
-    border-radius: 4px;
+    margin: 3px 0;
+    float: none;
+    background: @layoutPrimary;
+    border-radius: 999px;
+    transition:
+      transform @layoutTransition,
+      opacity @layoutTransition;
   }
 
   .public-shell .site-nav {
     order: 3;
     display: none;
     width: 100%;
+    padding-top: 4px;
   }
 
   .public-shell .menu_toggle:checked ~ .site-nav {
     display: block;
   }
 
+  .public-shell .menu_toggle:checked
+    + .menu_toggle_icon
+    .hmb:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .public-shell .menu_toggle:checked
+    + .menu_toggle_icon
+    .hmb:nth-child(2) {
+    opacity: 0;
+  }
+
+  .public-shell .menu_toggle:checked
+    + .menu_toggle_icon
+    .hmb:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
   .public-shell .site-nav-list {
     flex-direction: column;
     align-items: stretch;
-    gap: 5px;
-    padding-top: 10px;
+    gap: 6px;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid @layoutBorder;
+    border-radius: @layoutRadiusMedium;
+    box-shadow: @layoutShadowMedium;
   }
 
   .public-shell .site-nav-list li a {
     width: 100%;
     padding: 12px 14px;
-    background-color: @layoutBackground;
+    justify-content: flex-start;
+    background: @layoutSurfaceSoft;
+  }
+
+  .public-shell .site-nav-list li a::after {
+    display: none;
   }
 
   .public-shell .site-main {
-    padding: 22px 0;
+    padding: 25px 0 35px;
+  }
+
+  .public-shell .page-shell {
+    width: 92%;
   }
 
   .public-shell .site-main > .page-shell {
     width: 92%;
-    padding: 20px 16px;
+    padding: 22px 17px;
+    border-radius: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .public-shell .brand-lockup h1 {
-    font-size: 1.55rem;
+    font-size: 1.6rem;
   }
 
   .public-shell .brand-caption {
-    font-size: 0.75rem;
+    display: none;
   }
 
   .public-shell .site-main > .page-shell {
     padding: 18px 14px;
-    border-radius: 10px;
+    border-radius: 14px;
   }
 
   .public-shell th,
   .public-shell td {
-    padding: 9px;
-    font-size: 0.86rem;
+    padding: 10px;
+    font-size: 0.82rem;
+  }
+
+  .public-shell button,
+  .public-shell input[type="submit"],
+  .public-shell input[type="button"],
+  .public-shell .btn {
+    width: 100%;
   }
 }
+

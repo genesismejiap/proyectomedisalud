@@ -1,47 +1,184 @@
-.WWList table {
+.WWList {
   width: 100%;
-  margin: 0px;
-  -webkit-border-horizontal-spacing: 0px;
-  -webkit-border-vertical-spacing: 0px;
+  overflow-x: auto;
+  background: @surface;
+  border: 1px solid @borderColor;
+  border-radius: @radiusMedium;
+  box-shadow: @shadowSmall;
+  -webkit-overflow-scrolling: touch;
 }
 
+
+
+.WWList table {
+  width: 100%;
+  min-width: 680px;
+  margin: 0;
+  background: @surface;
+  border-collapse: collapse;
+  border-spacing: 0;
+  -webkit-border-horizontal-spacing: 0;
+  -webkit-border-vertical-spacing: 0;
+}
+
+
+
 .WWList table thead {
-  background-color: @primary_bg300;
-  color:@primary_text;
+  color: @primary_bg800;
+  background:
+    linear-gradient(
+      180deg,
+      @primary_bg300,
+      lighten(@primary_bg300, 7%)
+    );
+}
+
+.WWList table thead tr {
+  border-bottom: 2px solid @borderColor;
+}
+
+.WWList table thead th {
+  padding: 0.85rem 0.75rem;
+  color: @primary_bg800;
+  border: 0;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  line-height: 1.25;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+
+
+.WWList table tbody tr {
+  background-color: @surface;
+  border-bottom: 1px solid @borderColor;
+  transition:
+    background-color @transitionFast,
+    box-shadow @transitionFast;
+}
+
+.WWList table tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.WWList table tbody tr:nth-child(even) {
+  background-color: @surfaceSoft;
 }
 
 .WWList table tbody tr:hover {
-  outline-width: 1px;
-  outline-style: solid;
-  outline-color: @primary_bg;
-  outline-offset: -1px;
+  background-color: @primary_bg300;
+  box-shadow: inset 3px 0 0 @primary_bg;
+  outline: 0;
 }
 
-.WWList table thead th,
+
+
 .WWList table tbody td {
-  padding: 0.45em 0.5em;
-  margin: 0px;
-  border: 0px;
+  padding: 0.75rem;
+  margin: 0;
+  color: @textPrimary;
+  border: 0;
+  font-size: 0.87rem;
+  line-height: 1.4;
+  vertical-align: middle;
 }
 
-.WWList table tbody tr:nth-child(2n) {
-  background-color: @secondary_bg300;
-}
 
-.WWList table thead th a, .WWList table thead th a:visited  {
+
+.WWList table thead th a,
+.WWList table thead th a:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: @primary_bg800;
+  font-weight: 800;
   text-decoration: none;
-  color: @primary_text;
-}
-.WWList table thead th a::after{
-  font-size: 0.8em;
-  color: @primary_text;
+  transition: color @transitionFast;
 }
 
-.WWList table tbody td a, .WWList table tbody td a:visited  {
-  text-decoration: none;
-  color: @secondary_text;
+.WWList table thead th a:hover {
+  color: @primary_bg;
 }
-.WWList table thead th a::after{
-  font-size: 0.8em;
-  color: @secondary_text;
+
+.WWList table thead th a::after {
+  color: @primary_bg;
+  font-size: 0.78em;
+}
+
+
+
+.WWList table tbody td a,
+.WWList table tbody td a:visited {
+  color: @primary_bg;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color @transitionFast,
+    text-decoration-color @transitionFast;
+}
+
+.WWList table tbody td a:hover {
+  color: @primary_bg800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+
+
+.WWList table tbody td a.btn,
+.WWList table tbody td a.btn:visited {
+  color: @primary_action_tx;
+  text-decoration: none;
+}
+
+
+
+.WWList table tbody td[colspan] {
+  padding: 2rem 1rem;
+  color: @textMuted;
+  text-align: center;
+}
+
+
+.WWList::-webkit-scrollbar {
+  height: 8px;
+}
+
+.WWList::-webkit-scrollbar-track {
+  background: @secondary_bg300;
+  border-radius: 999px;
+}
+
+.WWList::-webkit-scrollbar-thumb {
+  background: lighten(@primary_bg, 18%);
+  border-radius: 999px;
+}
+
+.WWList::-webkit-scrollbar-thumb:hover {
+  background: @primary_bg;
+}
+
+
+
+@media (max-width: 767px) {
+  .WWList {
+    border-radius: @radiusSmall;
+  }
+
+  .WWList table {
+    min-width: 640px;
+  }
+
+  .WWList table thead th {
+    padding: 0.7rem 0.65rem;
+    font-size: 0.71rem;
+  }
+
+  .WWList table tbody td {
+    padding: 0.68rem 0.65rem;
+    font-size: 0.81rem;
+  }
 }

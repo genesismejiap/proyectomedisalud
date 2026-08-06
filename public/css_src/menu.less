@@ -1,110 +1,274 @@
 header nav {
   position: fixed;
-  left: 0px;
-  width: 100vw;
-  margin-top: 52px;
-  bottom: 0px;
-  height: ~"calc(100% - 51px)";
-  transform: translateX(-100vw);
-  background-color: @primary_bg;
+  top: 68px;
+  left: 0;
+  bottom: 0;
+  width: min(360px, 88vw);
+  height: ~"calc(100vh - 68px)";
+  margin: 0;
+  overflow-y: auto;
   color: @primary_text;
-  transition: transform 250ms ease-in-out;
+  background:
+    linear-gradient(
+      180deg,
+      @primary_bg,
+      @primary_bg800
+    );
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    10px 0 28px rgba(18, 68, 73, 0.18);
+  transform: translateX(-105%);
+  transition:
+    transform 0.28s ease,
+    visibility 0.28s ease;
+  visibility: hidden;
   z-index: 1000;
+  -webkit-overflow-scrolling: touch;
 }
+
+
+
+header nav::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 150px;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255, 255, 255, 0.12),
+      transparent 65%
+    );
+}
+
 
 
 header nav ul {
-  /* display: flex;
-  justify-content: stretch;
-  align-items: center;
-  padding: 0px;
+  position: relative;
+  margin: 0;
+  padding: 0.75rem;
+  border-top: 0;
   list-style: none;
-  margin: 0px;*/
-  padding: 0px;
-  margin: 0px;
-  border-top: 1px solid @primary_text;
 }
 
-header ul li {
+header nav ul li {
+  margin: 0 0 0.35rem;
+  overflow: hidden;
   list-style: none;
   cursor: pointer;
-  border-bottom: 1px solid @primary_text;
+  border: 0;
+  border-radius: @radiusSmall;
 }
 
-header ul li a,
-header ul li span {
+
+
+header nav ul li a,
+header nav ul li span {
   display: flex;
-  padding: 1rem;
-  color: @primary_text !important;
+  min-height: 46px;
+  padding: 0.8rem 0.9rem;
+  align-items: center;
+  gap: 0.65rem;
+  color: rgba(255, 255, 255, 0.92) !important;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: @radiusSmall;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.25;
   text-decoration: none;
-  transition: background-color 0.5s ease;
+  transition:
+    color @transitionFast,
+    background @transitionFast,
+    border-color @transitionFast,
+    transform @transitionFast;
 }
 
-header ul li a:hover {
-  background-color: @primary_bg300;
-  transition: background-color 0.5s ease;
+header nav ul li a:hover,
+header nav ul li a:focus-visible {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.11);
+  outline: none;
+  transform: translateX(3px);
 }
 
-header input[type=checkbox] {
-  transition: all 0.3s;
-  box-sizing: border-box;
-  display: none;
+header nav ul li a:active {
+  transform: translateX(1px);
 }
 
-header input[type="checkbox"]:checked~#menu {
+
+
+header nav ul li a.active,
+header nav ul li.active > a {
+  color: @primary_bg800 !important;
+  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 5px 14px rgba(18, 68, 73, 0.16);
+}
+
+
+
+header nav ul li + li {
+  border-top: 0;
+}
+
+
+
+header input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+header input[type="checkbox"]:checked ~ #menu {
   transform: translateX(0);
+  visibility: visible;
 }
+
+
 
 .menu_toggle_icon {
-  transition: all 0.3s;
-  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  width: 43px;
+  height: 41px;
+  margin: 0 0.25rem 0 0;
+  padding: 9px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
   cursor: pointer;
-  padding: 0.5rem;
-  margin-left: 0.5rem;
-  z-index: 99;
-  height: 33px;
-  width: 42px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: @radiusSmall;
+  box-sizing: border-box;
+  transition:
+    background @transitionFast,
+    border-color @transitionFast,
+    transform @transitionFast;
+  z-index: 1002;
 }
+
+.menu_toggle_icon:hover {
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.menu_toggle_icon:active {
+  transform: scale(0.97);
+}
+
+
 
 .hmb {
-  transition: all 0.3s;
-  box-sizing: border-box;
-  height: 3px;
-  width: 100%;
-  background-color: @primary_text;
-  border-radius: 2px;
   position: relative;
-  float: left;
+  width: 100%;
+  height: 2px;
+  margin: 3px 0;
+  float: none;
+  background-color: @primary_text;
+  border-radius: 999px;
+  box-sizing: border-box;
+  transition:
+    transform 0.28s ease,
+    opacity 0.2s ease,
+    margin 0.28s ease;
 }
 
-.hrz {
-  margin-top: 3px;
-}
-
+.hrz,
 .dgn.pt-2 {
   margin-top: 3px;
 }
 
-header input[type=checkbox]:checked~.menu_toggle_icon>.hrz {
-  transition: all 0.3s;
+
+
+header input[type="checkbox"]:checked
+  ~ .menu_toggle_icon
+  > .hrz {
   opacity: 0;
+  transform: scaleX(0);
 }
 
-header input[type=checkbox]:checked~.menu_toggle_icon>.dgn.pt-1 {
-  transition: all 0.3s;
-  transform: rotate(135deg);
+header input[type="checkbox"]:checked
+  ~ .menu_toggle_icon
+  > .dgn.pt-1 {
   margin-top: 7px;
+  transform: rotate(45deg);
 }
 
-header input[type=checkbox]:checked~.menu_toggle_icon>.dgn.pt-2 {
-  transition: all 0.3s;
-  transform: rotate(-135deg);
-  margin-top: -9px;
+header input[type="checkbox"]:checked
+  ~ .menu_toggle_icon
+  > .dgn.pt-2 {
+  margin-top: -7px;
+  transform: rotate(-45deg);
 }
+
+
+
+header nav::-webkit-scrollbar {
+  width: 7px;
+}
+
+header nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+header nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+}
+
+header nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.34);
+}
+
+/* Tablets y escritorio */
 
 @media @md {
   header nav {
-    width: 380px;
-    transform: translateX(-380px);
+    width: 350px;
+  }
+}
+
+
+
+@media (max-width: 767px) {
+  header nav {
+    top: 64px;
+    width: min(330px, 90vw);
+    height: ~"calc(100vh - 64px)";
+  }
+
+  header nav ul {
+    padding: 0.65rem;
+  }
+
+  header nav ul li a,
+  header nav ul li span {
+    min-height: 44px;
+    padding: 0.75rem 0.85rem;
+    font-size: 0.87rem;
+  }
+}
+
+@media (max-width: 420px) {
+  header nav {
+    width: 88vw;
+  }
+
+  .menu_toggle_icon {
+    width: 41px;
+    height: 39px;
   }
 }

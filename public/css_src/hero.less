@@ -1,47 +1,214 @@
 .hero {
-  display: flex;
-  width: 100vw;
-  height: 90vh;
-  background-color: @primary_bg;
-  color: @primary_text;
   position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 520px;
+  height: 90vh;
+  overflow: hidden;
+  color: @primary_text;
+  background-color: @primary_bg;
+  border-radius: @radiusLarge;
+  box-shadow: @shadowLarge;
 
   img {
     width: 100%;
-    padding: 0px;
-    margin: 0px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     object-fit: cover;
+    object-position: center;
+    filter: saturate(0.95) brightness(0.78);
+    transition:
+      transform 0.6s ease,
+      filter 0.6s ease;
+  }
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    content: "";
+    background:
+      linear-gradient(
+        90deg,
+        fade(@primary_bg800, 72%) 0%,
+        fade(@primary_bg, 42%) 42%,
+        fade(@primary_bg800, 12%) 100%
+      );
+  }
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    height: 45%;
+    pointer-events: none;
+    content: "";
+    background:
+      linear-gradient(
+        to top,
+        fade(@primary_bg800, 58%),
+        transparent
+      );
+  }
+
+  &:hover img {
+    filter: saturate(1) brightness(0.82);
+    transform: scale(1.025);
   }
 }
 
+/* Contenedor del hero */
+
 .herocontainer {
-  margin-left: -1rem;
-  margin-top: -1rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
+
+/* Panel de contenido */
 
 .action {
   position: absolute;
-  left: 0;
+  right: 2rem;
   bottom: 2rem;
-  box-sizing: border-box;
+  left: 2rem;
+  z-index: 2;
+
   display: flex;
+  width: auto;
+  max-width: 560px;
+  padding: clamp(1.4rem, 4vw, 2.4rem);
   flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  background-color: @primary_bg;
+
   color: @primary_text;
-  width:100%;
+  background: fade(@primary_bg800, 82%);
+  border: 1px solid fade(#ffffff, 18%);
+  border-radius: @radiusLarge;
+  box-shadow:
+    0 18px 38px fade(#000000, 24%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
+
+.action h1,
+.action h2,
+.action h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+  font-family: "Fraunces", "Georgia", serif;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.action h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+.action p {
+  max-width: 52ch;
+  margin: 0 0 1.2rem;
+  color: fade(#ffffff, 88%);
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.65;
+}
+
+.action .btn,
+.action button {
+  margin-top: 0.4rem;
+  color: @primary_bg800;
+  background: #ffffff;
+  border-color: #ffffff;
+  box-shadow:
+    0 7px 18px fade(#000000, 18%);
+}
+
+.action .btn:hover,
+.action button:hover {
+  color: @primary_bg800;
+  background: @primary_bg300;
+  border-color: @primary_bg300;
+}
+
+/* Tablets y escritorio */
 
 @media @md {
   .hero {
     height: 640px;
+    min-height: 640px;
   }
+
   .action {
-      left: ~"calc(75% - 160px)";
-      top: ~"calc(75% - 160px)";
-      bottom: initial;
-      width: 320px;
-    }
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    left: clamp(2rem, 7vw, 6rem);
+    width: min(440px, 42%);
+    transform: translateY(-50%);
   }
+}
+
+/* Celulares */
+
+@media (max-width: 767px) {
+  .hero {
+    min-height: 560px;
+    height: auto;
+    border-radius: @radiusMedium;
+  }
+
+  .hero img {
+    min-height: 560px;
+  }
+
+  .hero::before {
+    background:
+      linear-gradient(
+        to top,
+        fade(@primary_bg800, 82%) 0%,
+        fade(@primary_bg, 30%) 65%,
+        fade(@primary_bg800, 10%) 100%
+      );
+  }
+
+  .action {
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    max-width: none;
+    padding: 1.35rem;
+    border-radius: @radiusMedium;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: 520px;
+  }
+
+  .hero img {
+    min-height: 520px;
+  }
+
+  .action {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem;
+    padding: 1.15rem;
+  }
+
+  .action h1 {
+    font-size: 1.75rem;
+  }
+
+  .action p {
+    font-size: 0.9rem;
+  }
+}
+
