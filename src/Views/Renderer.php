@@ -130,7 +130,7 @@ class Renderer
         }
 
         foreach ($template_block as $node) {
-            //buscando si es un cierre de with
+            
             if (strpos($node, "{{endwith $currentContext}}") !== false) {
                 if ($withIsOpen) {
                     $withIsOpen = false;
@@ -153,7 +153,7 @@ class Renderer
                     continue;
                 }
             }
-            //buscando si es un cierre de foreach
+           
             if (strpos($node, "{{endfor $currentContext}}") !== false) {
                 if ($foreachIsOpen) {
                     $foreachIsOpen = false;
@@ -196,7 +196,7 @@ class Renderer
                 }
             }
 
-            //buscando si es un cierre de if
+            
             if (strpos($node, "{{endifnot $currentContext}}") !== false) {
                 if ($ifNotIsOpen) {
                     $ifNotIsOpen = false;
@@ -236,7 +236,7 @@ class Renderer
                 continue;
             }
 
-            //buscando si es una apertura de with
+            
             if (strpos($node, "{{with") !== false) {
                 if (!$withIsOpen) {
                     $withIsOpen = true;
@@ -247,7 +247,7 @@ class Renderer
                 }
             }
 
-            //buscando si es una apertura de foreach
+           
             if (strpos($node, "{{foreach") !== false) {
                 if (!$foreachIsOpen) {
                     $foreachIsOpen = true;
@@ -257,7 +257,7 @@ class Renderer
                     continue;
                 }
             }
-            //buscando si es un if
+         
             if (strpos($node, "{{ifnot")  !== false) {
                 if (!$ifNotIsOpen) {
                     $ifNotIsOpen = true;
@@ -310,7 +310,7 @@ class Renderer
                 }
             }
 
-            //remplazando las variables del nodo
+          
             $nodeReplace = preg_split(
                 "/(\{\{[&,~]?\w*\}\})/",
                 $node,
@@ -371,7 +371,6 @@ class Renderer
 
         $tag_regexp = "/" . join("|", $regexp_array) . "/";
 
-        //split the code with the tags regexp
         $template_code = preg_split(
             $tag_regexp,
             $htmlTemplate,
@@ -390,7 +389,7 @@ class Renderer
 
         $tag_regexp = "/" . join("|", $regexp_array) . "/";
 
-        //split the code with the tags regexp
+        
         $template_code = preg_split(
             $tag_regexp,
             $htmlTemplate,
@@ -425,7 +424,7 @@ class Renderer
 
         $tag_regexp = "/" . join("|", $regexp_array) . "/";
 
-        //split the code with the tags regexp
+       
         $template_code = preg_split(
             $tag_regexp,
             $htmlTemplate,
@@ -455,8 +454,6 @@ class Renderer
         }
         return $htmlBuffer;
     }
-    /**
-     * Constructor privado evita instancia de esta clase
-     */
+    
     private function __construct() {}
 }

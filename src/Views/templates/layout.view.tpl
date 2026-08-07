@@ -7,11 +7,11 @@
 
   <title>{{SITE_TITLE}}</title>
 
-  <!-- CSS principal -->
+  
   <link rel="stylesheet" href="{{BASE_DIR}}public/css/appstyle.css">
   <link rel="stylesheet" href="{{BASE_DIR}}public/css/layout.css">
 
-  <!-- CSS específicos de cada vista -->
+  
   {{foreach SiteLinks}}
     <link rel="stylesheet" href="{{~BASE_DIR}}/{{this}}">
   {{endfor SiteLinks}}
