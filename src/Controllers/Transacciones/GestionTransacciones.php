@@ -8,7 +8,7 @@ class GestionTransacciones extends PrivateController
 {
     public function run(): void
     {
-        // Si viene un ID específico por GET para ver el detalle modal/pantalla
+        
         $selectedTxnId = isset($_GET["txnid"]) ? intval($_GET["txnid"]) : 0;
         $selectedTxn = null;
         $selectedDetails = array();
@@ -23,7 +23,7 @@ class GestionTransacciones extends PrivateController
         $transacciones = \Dao\Transaccion::getAllTransactions();
         $hasTransacciones = count($transacciones) > 0;
 
-        // Totales para las tarjetas de estadísticas del panel
+        
         $totalVentas = 0;
         foreach ($transacciones as $txn) {
             $totalVentas += floatval($txn["txntotal"]);

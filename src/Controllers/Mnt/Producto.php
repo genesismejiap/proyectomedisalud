@@ -1,8 +1,5 @@
 <?php
-/**
- * Controlador: Formulario CRUD de Producto (Mantenimiento)
- * Ruta: index.php?page=Mnt_Producto&mode=INS|DSP|UPD|DEL&id=X
- */
+
 namespace Controllers\Mnt;
 
 use Controllers\PrivateController;
@@ -33,7 +30,7 @@ class Producto extends PrivateController
         $mode      = $_GET["mode"] ?? "INS";
         $productId = (int)($_GET["id"] ?? 0);
 
-        // Datos por defecto
+    
         $viewData = array(
             "mode"           => $mode,
             "productId"      => $productId,
@@ -50,7 +47,7 @@ class Producto extends PrivateController
             "modeTitle"      => $this->getModeTitle($mode),
         );
 
-        // Cargar producto existente
+       
         if ($productId > 0 && $mode !== "INS") {
             $prod = \Dao\Productos::getById($productId);
             if ($prod) {
@@ -68,7 +65,7 @@ class Producto extends PrivateController
         $viewData["showDelete"]  = ($mode === "DEL");
         $viewData["hasImage"]    = ($viewData["productImgUrl"] !== "");
 
-        // Construir options de categoria
+        
         $catOptions = [];
         foreach ($this->categories as $cat) {
             $catOptions[] = [
@@ -79,7 +76,7 @@ class Producto extends PrivateController
         }
         $viewData["categoryOptions"] = $catOptions;
 
-        // Construir options de estado
+       
         $stOptions = [];
         foreach ($this->statusOptions as $val => $label) {
             $stOptions[] = [
@@ -90,13 +87,12 @@ class Producto extends PrivateController
         }
         $viewData["statusOptions"] = $stOptions;
 
-        // POST: guardar cambios
+        
         if ($this->isPostBack()) {
             $postMode = trim($_POST["mode"] ?? "INS");
             $postId   = (int)($_POST["productId"] ?? 0);
 
-            // En modo DEL los campos van deshabilitados (no viajan en el POST),
-            // por lo que la eliminación se procesa antes de las validaciones.
+           
             if ($postMode === "DEL" && $postId > 0) {
                 \Dao\Productos::deleteProduct($postId);
                 \Utilities\Site::redirectTo("index.php?page=Mnt_Productos");
@@ -127,7 +123,7 @@ class Producto extends PrivateController
                 $hasError = true;
             }
 
-            // Imagen actual registrada en la BD (para limpiarla del disco al reemplazar/eliminar)
+            
             $currentImgUrl = "";
             if ($postId > 0) {
                 $current = \Dao\Productos::getById($postId);
@@ -136,7 +132,7 @@ class Producto extends PrivateController
                 }
             }
 
-            // Eliminar la imagen actual si el administrador lo solicitó
+          
             if ($deleteImage) {
                 $this->deleteLocalImage($currentImgUrl);
                 if ($imgUrl === $currentImgUrl) {
@@ -144,7 +140,7 @@ class Producto extends PrivateController
                 }
             }
 
-            // Procesar la subida de una nueva imagen (tiene prioridad sobre la URL)
+           
             $upload = $this->processImageUpload();
             if ($upload["error"] !== "") {
                 $viewData["errorImg"] = $upload["error"];
@@ -164,7 +160,7 @@ class Producto extends PrivateController
                 die();
             }
 
-            // repoblar form con datos enviados
+          
             $viewData["productName"]        = $name;
             $viewData["productDescription"] = $description;
             $viewData["productPrice"]       = $price;
@@ -189,10 +185,7 @@ class Producto extends PrivateController
         return $titles[$mode] ?? "Producto";
     }
 
-    /**
-     * Valida y guarda la imagen subida en public/imgs/products/.
-     * Devuelve array("path" => ruta relativa, "error" => mensaje).
-     */
+    
     private function processImageUpload(): array
     {
         $result = array("path" => "", "error" => "");
@@ -237,10 +230,7 @@ class Producto extends PrivateController
         return $result;
     }
 
-    /**
-     * Elimina del disco una imagen local del producto.
-     * Nunca toca URLs externas (https://...), solo archivos dentro de public/imgs/products/.
-     */
+   
     private function deleteLocalImage(string $imgUrl): void
     {
         if ($imgUrl !== "" && strpos($imgUrl, self::IMG_DIR) === 0 && file_exists($imgUrl)) {

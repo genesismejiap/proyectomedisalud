@@ -2,9 +2,7 @@
 
 namespace Dao;
 
-/**
- * Clase base para todos los modelos de datos
- */
+
 abstract class Table
 {
     private static $_conn = null;
@@ -31,28 +29,7 @@ abstract class Table
         $valueType = gettype($value);
 
         return self::$_bindMapping[$valueType];
-        /*
-        "boolean"
-        "integer"
-        "double" (por razones históricas "double" es devuelto en caso de que un valor sea de tipo float, y no simplemente "float")
-        "string"
-        "array"
-        "object"
-        "resource"
-        "NULL"
-        "unknown type"
-        */
-        /*
-        PDO::PARAM_BOOL (integer)
-        Representa un tipo de dato booleano.
-        PDO::PARAM_NULL (integer)
-        Representa el tipo de dato NULL de SQL.
-        PDO::PARAM_INT (integer)
-        Representa el tipo de dato INTEGER de SQL .
-        PDO::PARAM_STR (integer)
-        Representa el tipo de dato CHAR, VARCHAR de SQL, u otro tipo de datos de cadena.
-         */
-
+       
     }
 
     protected static function obtenerRegistros($sqlstr, $params, &$conn = null)
